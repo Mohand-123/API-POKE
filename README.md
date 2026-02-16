@@ -18,11 +18,6 @@ Application web moderne pour explorer et gérer votre collection de Pokémon en 
 - **API** : PokeBuild API
 - **Font** : Poppins (Google Fonts)
 
-## 📋 Prérequis
-
-- Go 1.16 ou supérieur
-- Connexion Internet (pour l'API PokeBuild)
-
 ## 🚀 Installation
 
 1. Clonez le dépôt ou téléchargez les fichiers
@@ -95,24 +90,6 @@ API POKEMONES/
 - Gérez votre collection dans la section "Favoris"
 - Supprimez des favoris en cliquant sur le bouton "×"
 
-## 🎨 Design
-
-L'application utilise un thème sombre moderne avec :
-- Fond noir (#0f0f23)
-- Effets de glassmorphisme
-- Animations fluides et interactives
-- Dégradés violets et rouges
-- Font Poppins pour une typographie moderne
-
-## 🔧 Configuration
-
-### Port du serveur
-Le serveur démarre par défaut sur le port 8080. Pour changer le port, modifiez le fichier `cmd/main.go`.
-
-### Cache
-Les headers anti-cache sont configurés pour éviter les problèmes de mise en cache. Si vous voyez une ancienne version :
-- Appuyez sur **Ctrl+Shift+R** pour un hard refresh
-- Ou ouvrez en navigation privée
 
 ## 📝 API
 
@@ -123,38 +100,4 @@ Endpoints utilisés :
 - Détails d'un Pokémon : `/pokemon/{id}`
 - Recherche : `/pokemon?name={query}`
 
-## 🐛 Dépannage
 
-### Le serveur ne démarre pas
-- Vérifiez que Go est installé : `go version`
-- Assurez-vous d'être dans le bon dossier : `cd src`
-
-### Les styles ne s'affichent pas
-- Videz le cache du navigateur (Ctrl+Shift+Delete)
-- Rechargez la page avec Ctrl+Shift+R
-- Essayez en navigation privée
-
-### Les favoris ne se sauvegardent pas
-- Vérifiez que le fichier `favoris.json` existe
-- Assurez-vous d'avoir les permissions d'écriture
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! N'hésitez pas à :
-- Signaler des bugs
-- Proposer des nouvelles fonctionnalités
-- Améliorer le design
-- Optimiser le code
-
-## 📄 Licence
-
-Ce projet est open source et disponible sous licence MIT.
-
-## 👨‍💻 Auteur
-
-Créé avec ❤️ pour les fans de Pokémon
-
----
-
-**Note** : Ce projet utilise l'API PokeBuild qui peut avoir des limites de taux. Utilisez-le de manière responsable.
-# API-POKE
