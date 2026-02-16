@@ -1,0 +1,41 @@
+{{define "home"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Pokémon Tracker - Accueil</title>
+    <link rel="stylesheet" href="/assets/dark-theme.css?v=999">
+</head>
+<body>
+    <nav>
+        <a href="/">Accueil</a>
+        <a href="/pokemons">Pokémons</a>
+        <a href="/search">Recherche</a>
+        <a href="/categories">Catégories</a>
+        <a href="/favorites">Favoris</a>
+    </nav>
+    <div class="container">
+        <div class="home-section">
+            <h1>🌟 Bienvenue sur Pokémon Tracker</h1>
+            <p>Explorez la collection complète de Pokémon</p>
+            
+            <div class="button-grid">
+                <a href="/pokemons" class="home-btn">📋 Tous les Pokémon</a>
+                <a href="/search" class="home-btn">🔍 Rechercher</a>
+                <a href="/categories" class="home-btn">📁 Catégories</a>
+                <a href="/favorites" class="home-btn">⭐ Favoris</a>
+            </div>
+            
+            <div class="info-text">
+                <p>Ce site utilise l'API PokeBuild pour afficher des Pokémon.</p>
+                <p><a href="/about">En savoir plus →</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

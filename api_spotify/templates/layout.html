@@ -1,0 +1,28 @@
+{{define "api_poke_base"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{block "title" .}}API Spotify{{end}}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>API Spotify 🎧</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/albums">Albums</a>
+      <a href="/tracks">Tracks</a>
+    </nav>
+  </header>
+
+  <main>
+    {{block "content" .}}{{end}}
+  </main>
+
+  <footer>
+    <small>&copy; 2025 API Spotify</small>
+  </footer>
+</body>
+</html>
+{{end}}

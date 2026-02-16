@@ -1,0 +1,29 @@
+{{define "api_poke_error"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Erreur - API Spotify</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>API Spotify 🎧</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/albums">Albums</a>
+      <a href="/tracks">Tracks</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Une erreur est survenue</h2>
+    <p>{{.Message}}</p>
+  </main>
+
+  <footer>
+    <small>&copy; 2025 API Spotify</small>
+  </footer>
+</body>
+</html>
+{{end}}

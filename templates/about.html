@@ -1,0 +1,35 @@
+{{template "base" .}}
+
+{{define "content"}}
+<section style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1>À propos du projet</h1>
+
+    <h2>Présentation</h2>
+    <p>Application web en Go pour explorer les Pokémon via l'API PokeBuild.</p>
+    <p>Fonctionnalités : recherche, filtres, pagination, favoris.</p>
+
+    <h2>FAQ - Gestion de projet</h2>
+
+    <h3>Comment avez-vous décomposé le projet ?</h3>
+    <p>Phases : Choix de l'API → Structure du projet → Fonctionnalités de base → FT1 à FT4 → Tests et documentation.</p>
+
+    <h3>Comment avez-vous organisé le travail ?</h3>
+    <p>Projet individuel. Todo list, priorités sur les fonctionnalités obligatoires, développement itératif.</p>
+
+    <h3>Comment avez-vous géré votre temps ?</h3>
+    <p>Priorités : structure de base, puis FT1-FT4, puis pages requises, puis gestion erreurs, enfin documentation.</p>
+
+    <h3>Quelle stratégie pour vous documenter ?</h3>
+    <p>Documentation PokeBuild API, documentation Go (net/http, html/template), exemples en ligne.</p>
+
+    <h2>Informations techniques</h2>
+    <p><strong>Technologies :</strong> Go (librairies standard), HTML, CSS</p>
+    <p><strong>API :</strong> PokeBuild API (https://pokebuildapi.fr/api/v1)</p>
+    <p><strong>Endpoints :</strong></p>
+    <ul>
+        <li>GET /api/v1/pokemon - Liste complète</li>
+        <li>GET /api/v1/pokemon/{id} - Détails</li>
+        <li>GET /api/v1/pokemon/type/{type} - Par type</li>
+    </ul>
+</section>
+{{end}}

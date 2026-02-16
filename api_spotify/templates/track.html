@@ -1,0 +1,49 @@
+{{define "api_poke_track"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracks - JUL API Spotify</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎵 API Spotify - JUL</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/albums">Albums</a>
+      <a href="/tracks" class="active">Tracks</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="content-section">
+      <h2>🎵 Top Tracks de JUL</h2>
+      <div class="album-grid">
+        {{range .Tracks}}
+          <div class="album-card">
+            <img src="{{.AlbumCover}}" alt="{{.Album}}" class="album-cover" onerror="this.src='/static/placeholder.jpg'">
+            <h3>{{.Name}}</h3>
+            <p class="artist"><strong>Artiste:</strong> {{.Artist}}</p>
+            <p class="year"><strong>Album:</strong> {{.Album}}</p>
+            <p class="year"><strong>Durée:</strong> {{.Duration}}</p>
+            {{if .ExternalURL}}
+            <a href="{{.ExternalURL}}" target="_blank" class="spotify-link">
+              ▶️ Spotify
+            </a>
+            {{end}}
+          </div>
+        {{else}}
+          <p class="no-data">Aucune track trouvée</p>
+        {{end}}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 API Spotify - JUL | Powered by Spotify API</p>
+  </footer>
+</body>
+</html>
+{{end}}

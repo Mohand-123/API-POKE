@@ -1,0 +1,43 @@
+{{define "api_poke_albums"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albums - JUL API Spotify</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>🎵 API Spotify - JUL</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/albums" class="active">Albums</a>
+      <a href="/tracks">Tracks</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="content-section">
+      <h2>📀 Discographie complète de JUL</h2>
+      <div class="album-grid">
+        {{range .Albums}}
+          <div class="album-card">
+            <img src="{{.Cover}}" alt="{{.Title}}" class="album-cover" onerror="this.src='/static/placeholder.jpg'">
+            <h3>{{.Title}}</h3>
+            <p class="artist"><strong>Artiste:</strong> {{.Artist}}</p>
+            <p class="year"><strong>Année:</strong> {{.Year}}</p>
+          </div>
+        {{else}}
+          <p class="no-data">Aucun album trouvé</p>
+        {{end}}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 API Spotify - JUL | Powered by Spotify API</p>
+  </footer>
+</body>
+</html>
+{{end}}

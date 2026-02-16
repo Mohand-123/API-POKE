@@ -1,0 +1,294 @@
+/* ====== RESET & GLOBAL ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ====== HEADER ====== */
+header {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 1.5em;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav {
+  margin-top: 1em;
+}
+
+nav a {
+  color: #fff;
+  margin: 0 1.5em;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+  background: #1DB954;
+  transform: translateY(-2px);
+}
+
+/* ====== MAIN CONTENT ====== */
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+.content-section {
+  background: linear-gradient(145deg, rgba(255, 253, 231, 0.95), rgba(255, 236, 210, 0.95));
+  border-radius: 15px;
+  padding: 2em;
+  margin-bottom: 2em;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.content-section h2 {
+  color: #333;
+  margin-bottom: 1.5em;
+  font-size: 1.8em;
+  text-align: center;
+  border-bottom: 3px solid #1DB954;
+  padding-bottom: 0.5em;
+}
+
+/* ====== HERO SECTION ====== */
+.hero {
+  text-align: center;
+  background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+  color: #fff;
+  padding: 3em 2em;
+  border-radius: 15px;
+  margin-bottom: 2em;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+/* ====== ALBUM GRID ====== */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2em;
+  padding: 1em 0;
+}
+
+.album-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.album-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.album-cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.album-card h3 {
+  font-size: 1.2em;
+  margin: 0.5em 0;
+  color: #222;
+}
+
+.album-card .artist {
+  color: #666;
+  font-size: 0.95em;
+  margin: 0.3em 0;
+}
+
+.album-card .year {
+  color: #999;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+}
+
+/* ====== TRACK LIST ====== */
+.track-list {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.track-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  margin: 0.5em 0;
+  background: #f8f8f8;
+  border-radius: 8px;
+  border-left: 4px solid #1DB954;
+  transition: all 0.3s ease;
+}
+
+.track-list li:hover {
+  background: #fff;
+  transform: translateX(10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.track-name {
+  font-weight: 600;
+  color: #222;
+  flex: 1;
+}
+
+.track-duration {
+  color: #666;
+  font-size: 0.9em;
+  padding: 0.3em 0.8em;
+  background: #e0e0e0;
+  border-radius: 20px;
+}
+
+/* ====== TRACK CARD (Details) ====== */
+.track-details {
+  display: flex;
+  justify-content: center;
+  padding: 2em 0;
+}
+
+.track-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 2em;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.track-card h3 {
+  margin: 1em 0 0.5em;
+  font-size: 1.8em;
+  color: #222;
+}
+
+.track-card p {
+  margin: 0.5em 0;
+  color: #555;
+  font-size: 1.1em;
+}
+
+.spotify-link {
+  display: inline-block;
+  padding: 1em 2em;
+  background: #1DB954;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-top: 1.5em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(29, 185, 84, 0.3);
+}
+
+.spotify-link:hover {
+  background: #1ed760;
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(29, 185, 84, 0.5);
+}
+
+/* ====== NO DATA MESSAGE ====== */
+.no-data {
+  text-align: center;
+  padding: 2em;
+  color: #999;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  text-align: center;
+  padding: 2em;
+  margin-top: 3em;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.95em;
+  opacity: 0.8;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5em;
+  }
+  
+  nav a {
+    margin: 0 0.5em;
+    font-size: 0.9em;
+    padding: 0.4em 0.8em;
+  }
+  
+  .hero h1 {
+    font-size: 1.8em;
+  }
+  
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1em;
+  }
+  
+  .content-section {
+    padding: 1em;
+  }
+  
+  main {
+    padding: 1em;
+  }
+}

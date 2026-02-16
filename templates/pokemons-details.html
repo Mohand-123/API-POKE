@@ -1,0 +1,119 @@
+{{define "pokemons-details"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Pokemon.Name}} - Détails</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .pokemon-details {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .pokemon-details img {
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+        }
+        .pokemon-types {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .type-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-link:hover {
+            background: #0056b3;
+        }
+        nav {
+            background: #333;
+            padding: 10px 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/pokemons">Accueil</a>
+        <a href="/search">Recherche</a>
+        <a href="/categories">Catégories</a>
+        <a href="/favorites">Favoris</a>
+    </nav>
+
+    <div class="container">
+        <div class="pokemon-details">
+            <h1>#{{.Pokemon.Id}} {{.Pokemon.Name}}</h1>
+            <img src="{{.Pokemon.Image}}" alt="{{.Pokemon.Name}}">
+            
+            <div class="pokemon-types">
+                {{range .Pokemon.Types}}
+                <span class="type-badge">{{.Name}}</span>
+                {{end}}
+            </div>
+
+            <div style="margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                <h2 style="margin-bottom: 15px; color: #333;">Caractéristiques</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left;">
+                    <div style="padding: 10px; background: white; border-radius: 5px;">
+                        <strong style="color: #667eea;">⚖️ Poids:</strong> {{.Pokemon.Weight}}
+                    </div>
+                    <div style="padding: 10px; background: white; border-radius: 5px;">
+                        <strong style="color: #667eea;">⭐ Expérience de base:</strong> {{.Pokemon.BaseExperience}}
+                    </div>
+                </div>
+            </div>
+
+            {{if .IsFavorite}}
+            <form method="POST" action="/favorites/remove" style="display: inline;">
+                <input type="hidden" name="pokemon_id" value="{{.Pokemon.Id}}">
+                <button type="submit" style="padding: 12px 24px; font-size: 18px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 20px 0;">
+                    ✓ Dans les favoris
+                </button>
+            </form>
+            {{else}}
+            <form method="POST" action="/favorites/add" style="display: inline;">
+                <input type="hidden" name="pokemon_id" value="{{.Pokemon.Id}}">
+                <button type="submit" style="padding: 12px 24px; font-size: 18px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 20px 0;">
+                    Ajouter aux favoris
+                </button>
+            </form>
+            {{end}}
+
+            <div>
+                <a href="/pokemons" class="back-link">← Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

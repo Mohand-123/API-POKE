@@ -1,0 +1,62 @@
+{{define "home.html"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil - API Pokemon</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>� API Pokemon</h1>
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/albums">Albums</a>
+      <a href="/tracks">Tracks</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Bienvenue sur l'API Pokemon 🎮</h1>
+      <p>Découvrez tous les Pokémon et leurs informations</p>
+    </div>
+
+    <section class="content-section">
+      <h2>📀 Albums disponibles</h2>
+      <div class="album-grid">
+        {{range .Albums}}
+          <div class="album-card">
+            <img src="{{.Cover}}" alt="{{.Title}}" class="album-cover" onerror="this.src='/static/placeholder.jpg'">
+            <h3>{{.Title}}</h3>
+            <p class="artist">{{.Artist}}</p>
+            <p class="year">{{.Year}}</p>
+          </div>
+        {{else}}
+          <p class="no-data">Aucun album trouvé</p>
+        {{end}}
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>🎵 Top Tracks</h2>
+      <ul class="track-list">
+        {{range .Tracks}}
+          <li>
+            <span class="track-name">{{.Name}}</span>
+            <span class="track-duration">{{.Duration}}</span>
+          </li>
+        {{else}}
+          <li class="no-data">Aucune track trouvée</li>
+        {{end}}
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 API Pokemon | Powered by PokeAPI</p>
+  </footer>
+</body>
+</html>
+{{end}}

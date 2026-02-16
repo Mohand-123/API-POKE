@@ -1,0 +1,88 @@
+{{define "categories"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catégories par type</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0f0f23; font-family: 'Poppins', sans-serif; color: #fff; min-height: 100vh; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 50%, rgba(102,126,234,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,107,107,0.15) 0%, transparent 50%); z-index: 0; }
+        nav { background: linear-gradient(135deg, rgba(15,15,35,0.95), rgba(25,25,45,0.95)); backdrop-filter: blur(20px); padding: 20px 40px; border-bottom: 2px solid rgba(102,126,234,0.3); position: relative; z-index: 10; box-shadow: 0 5px 30px rgba(0,0,0,0.5); }
+        nav a { color: #fff; text-decoration: none; margin: 0 20px; padding: 12px 28px; border-radius: 12px; transition: all 0.4s; font-weight: 600; font-size: 16px; border: 2px solid transparent; }
+        nav a:hover { background: linear-gradient(135deg, #667eea, #764ba2); border-color: rgba(255,255,255,0.3); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(102,126,234,0.4); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 60px 20px; position: relative; z-index: 1; }
+        .hero-section { text-align: center; padding: 90px 60px; background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1)); border: 2px solid rgba(102,126,234,0.4); border-radius: 35px; box-shadow: 0 25px 70px rgba(0,0,0,0.6), inset 0 0 40px rgba(102,126,234,0.1); margin: 40px 0; position: relative; }
+        .hero-section::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #ff6b6b, #667eea, #764ba2, #4facfe); border-radius: 35px; z-index: -1; opacity: 0.3; filter: blur(20px); }
+        .hero-section h1 { background: linear-gradient(135deg, #ff6b6b, #667eea, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 3.8em; margin-bottom: 20px; font-weight: 900; letter-spacing: -2px; }
+        h2 { color: #ff6b6b; margin: 40px 0; font-size: 2.2em; font-weight: 700; }
+        .filter-form { background: rgba(20,20,40,0.6); backdrop-filter: blur(15px); padding: 45px; border-radius: 25px; margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 2px solid rgba(102,126,234,0.3); }
+        .filter-form label { color: #a0a0ff; font-weight: 700; display: block; margin-bottom: 12px; font-size: 19px; }
+        .filter-form input { width: 100%; padding: 18px 26px; border: 2px solid rgba(102,126,234,0.4); border-radius: 15px; font-size: 17px; margin: 12px 0; background: rgba(30,30,60,0.8); color: #fff; font-weight: 500; font-family: 'Poppins', sans-serif; transition: all 0.3s; }
+        .filter-form input::placeholder { color: #666; }
+        .filter-form input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 20px rgba(102,126,234,0.4); transform: translateY(-2px); }
+        .filter-form button { padding: 18px 45px; background: linear-gradient(135deg, #ff6b6b, #ee5a6f); color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: 700; font-size: 18px; font-family: 'Poppins', sans-serif; transition: all 0.4s; box-shadow: 0 10px 30px rgba(255,107,107,0.5); margin-top: 15px; }
+        .filter-form button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 40px rgba(255,107,107,0.7); }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin: 30px 0; }
+        .pokemon-card { background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15)); backdrop-filter: blur(10px); border-radius: 25px; padding: 35px; text-align: center; box-shadow: 0 15px 45px rgba(0,0,0,0.5); transition: all 0.5s; border: 2px solid rgba(102,126,234,0.3); cursor: pointer; position: relative; overflow: hidden; }
+        .pokemon-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transition: left 0.6s; }
+        .pokemon-card:hover::before { left: 100%; }
+        .pokemon-card:hover { transform: translateY(-18px) scale(1.05); box-shadow: 0 25px 60px rgba(102,126,234,0.6); border-color: #667eea; }
+        .pokemon-card img { width: 160px; height: 160px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)); transition: transform 0.4s; }
+        .pokemon-card:hover img { transform: scale(1.15) rotate(8deg); }
+        .pokemon-card h3 { color: #fff; font-weight: 900; font-size: 24px; margin: 22px 0; text-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .pokemon-card a { color: #fff; text-decoration: none; }
+        .pokemon-card p { color: #a0a0ff; font-weight: 600; margin: 6px 0; text-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+        .type-badge { padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, rgba(255,107,107,0.4), rgba(238,90,111,0.4)); backdrop-filter: blur(10px); color: #fff; font-size: 15px; font-weight: 700; display: inline-block; margin: 6px; border: 1px solid rgba(255,107,107,0.5); text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/pokemons">Accueil</a>
+        <a href="/search">Recherche</a>
+        <a href="/categories">Catégories</a>
+        <a href="/favorites">Favoris</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero-section">
+            <h1>📁 Catégories par type</h1>
+        </div>
+
+        <div class="filter-form">
+            <form method="GET" action="/categories">
+                <label>Type de pokémon</label>
+                <input type="text" name="type" value="{{.TypeName}}" placeholder="Ex: Feu, Eau, Plante, Élektrik...">
+                <button type="submit">Filtrer</button>
+            </form>
+        </div>
+
+        {{if .TypeName}}
+        <h2>Pokémons de type "{{.TypeName}}"</h2>
+        {{if not .Pokemons}}
+        <p>Aucun pokémon trouvé pour ce type.</p>
+        {{else}}
+        <p>{{.TotalCount}} pokémon(s) trouvé(s)</p>
+        <div class="results-grid">
+            {{range .Pokemons}}
+            <div class="pokemon-card">
+                <a href="/pokemons/{{.Id}}">
+                    <img src="{{.Image}}" alt="{{.Name}}">
+                    <h3>#{{.Id}} {{.Name}}</h3>
+                    <p>
+                        {{range .Types}}
+                        {{.Name}}
+                        {{end}}
+                    </p>
+                </a>
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+</body>
+</html>
+{{end}}

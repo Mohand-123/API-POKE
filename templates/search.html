@@ -1,0 +1,171 @@
+{{define "search"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Pokémons</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0f0f23; font-family: 'Poppins', sans-serif; color: #fff; min-height: 100vh; position: relative; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 50%, rgba(102,126,234,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,107,107,0.15) 0%, transparent 50%); z-index: 0; }
+        nav { background: linear-gradient(135deg, rgba(15,15,35,0.95), rgba(25,25,45,0.95)); backdrop-filter: blur(20px); padding: 20px 40px; border-bottom: 2px solid rgba(102,126,234,0.3); position: relative; z-index: 10; box-shadow: 0 5px 30px rgba(0,0,0,0.5); }
+        nav a { color: #fff; text-decoration: none; margin: 0 20px; padding: 12px 28px; border-radius: 12px; transition: all 0.4s; font-weight: 600; font-size: 16px; border: 2px solid transparent; }
+        nav a:hover { background: linear-gradient(135deg, #667eea, #764ba2); border-color: rgba(255,255,255,0.3); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(102,126,234,0.4); }
+        .search-container { max-width: 1300px; margin: 0 auto; padding: 60px 20px; position: relative; z-index: 1; }
+        .search-hero { text-align: center; padding: 90px 60px; background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1)); border: 2px solid rgba(102,126,234,0.4); border-radius: 35px; box-shadow: 0 25px 70px rgba(0,0,0,0.6), inset 0 0 40px rgba(102,126,234,0.1); margin-top: 40px; position: relative; }
+        .search-hero::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #ff6b6b, #667eea, #764ba2, #4facfe); border-radius: 35px; z-index: -1; opacity: 0.3; filter: blur(20px); }
+        .search-hero h1 { background: linear-gradient(135deg, #ff6b6b, #667eea, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 3.8em; margin-bottom: 30px; font-weight: 900; letter-spacing: -2px; }
+        .search-form form { display: flex; gap: 15px; background: rgba(20,20,40,0.6); backdrop-filter: blur(10px); padding: 15px; border-radius: 50px; max-width: 850px; margin: 0 auto; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 2px solid rgba(102,126,234,0.3); }
+        .search-form input { flex: 1; padding: 20px 30px; font-size: 18px; border: none; border-radius: 50px; outline: none; background: rgba(30,30,60,0.8); color: #fff; font-weight: 500; font-family: 'Poppins', sans-serif; }
+        .search-form input::placeholder { color: #888; }
+        .search-form button { padding: 20px 50px; background: linear-gradient(135deg, #ff6b6b, #ee5a6f); color: white; border: none; border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: 700; font-family: 'Poppins', sans-serif; transition: all 0.4s; box-shadow: 0 8px 30px rgba(255,107,107,0.5); }
+        .search-form button:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(255,107,107,0.7); }
+        .suggestions-box { position: relative; max-width: 850px; margin: 10px auto 0; z-index: 100; }
+        .suggestions-list { position: absolute; top: 0; left: 0; right: 0; background: rgba(20,20,40,0.98); backdrop-filter: blur(20px); border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.8); max-height: 350px; overflow-y: auto; z-index: 1000; display: none; border: 2px solid rgba(102,126,234,0.4); }
+        .suggestion-item { padding: 18px 28px; cursor: pointer; color: #fff; border-bottom: 1px solid rgba(102,126,234,0.2); font-size: 17px; transition: all 0.3s; font-weight: 500; }
+        .suggestion-item:hover { background: linear-gradient(135deg, rgba(102,126,234,0.3), rgba(118,75,162,0.3)); transform: translateX(8px); }
+        .suggestion-item strong { color: #ff6b6b; font-weight: 700; }
+        .search-subtitle { color: #a0a0ff; margin-top: 25px; font-size: 1.3em; font-weight: 500; }
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
+        .pokemon-card { background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15)); backdrop-filter: blur(10px); border-radius: 25px; padding: 35px; text-align: center; box-shadow: 0 15px 45px rgba(0,0,0,0.5); transition: all 0.5s; border: 2px solid rgba(102,126,234,0.3); cursor: pointer; position: relative; overflow: hidden; }
+        .pokemon-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transition: left 0.6s; }
+        .pokemon-card:hover::before { left: 100%; }
+        .pokemon-card:hover { transform: translateY(-18px) scale(1.05); box-shadow: 0 25px 60px rgba(102,126,234,0.6); border-color: #667eea; }
+        .pokemon-card img { width: 160px; height: 160px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)); transition: transform 0.4s; }
+        .pokemon-card:hover img { transform: scale(1.15) rotate(8deg); }
+        .pokemon-card a { text-decoration: none; color: #fff; }
+        .pokemon-card h3 { color: #fff; font-weight: 900; font-size: 24px; margin: 22px 0; text-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        .type-badge { padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, rgba(255,107,107,0.4), rgba(238,90,111,0.4)); backdrop-filter: blur(10px); color: #fff; font-size: 15px; font-weight: 700; display: inline-block; margin: 6px; border: 1px solid rgba(255,107,107,0.5); text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+        .results-header { background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.15)); backdrop-filter: blur(15px); padding: 30px; border-radius: 22px; margin: 35px 0; box-shadow: 0 15px 40px rgba(0,0,0,0.5); border: 2px solid rgba(102,126,234,0.3); }
+        .results-header h2 { margin: 0 0 12px 0; color: #fff; font-weight: 800; }
+        .results-header p { color: #a0a0ff; font-weight: 600; }
+        .no-results { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1)); backdrop-filter: blur(15px); padding: 60px; border-radius: 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 2px solid rgba(102,126,234,0.3); }
+        .no-results p { font-size: 1.4em; color: #fff; font-weight: 700; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/pokemons">Accueil</a>
+        <a href="/search">Recherche</a>
+        <a href="/categories">Catégories</a>
+        <a href="/favorites">Favoris</a>
+    </nav>
+
+    <div class="search-container">
+        <div class="search-hero">
+            <h1>🔍 Rechercher un Pokémon</h1>
+            <p class="search-subtitle">Trouvez votre Pokémon préféré parmi des centaines de créatures</p>
+            
+            <div class="search-form">
+                <form method="GET" action="/search" id="searchForm">
+                    <input type="text" name="q" id="searchInput" value="{{.SearchQuery}}" placeholder="Rechercher un Pokémon par nom..." autofocus autocomplete="off">
+                    <button type="submit">Rechercher</button>
+                </form>
+            </div>
+            
+            <div class="suggestions-box">
+                <div class="suggestions-list" id="suggestionsList"></div>
+            </div>
+        </div>
+
+        {{if .SearchQuery}}
+        <div class="results-header">
+            <h2>Résultats pour "{{.SearchQuery}}"</h2>
+            <p style="color: #666; margin: 0;">{{.TotalCount}} pokémon(s) trouvé(s)</p>
+        </div>
+        
+        {{if not .Pokemons}}
+        <div class="no-results">
+            <p>😢 Aucun Pokémon trouvé pour cette recherche.</p>
+            <p style="font-size: 1em; color: #999;">Essayez avec un autre nom !</p>
+        </div>
+        {{else}}
+        <div class="results-grid">
+            {{range .Pokemons}}
+            <div class="pokemon-card">
+                <a href="/pokemons/{{.Id}}">
+                    <img src="{{.Image}}" alt="{{.Name}}">
+                    <h3>#{{.Id}} {{.Name}}</h3>
+                    <div>
+                        {{range .Types}}
+                        <span class="type-badge">{{.Name}}</span>
+                        {{end}}
+                    </div>
+                </a>
+            </div>
+            {{end}}
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsList = document.getElementById('suggestionsList');
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            const query = this.value.trim();
+            
+            if (query.length === 0) {
+                suggestionsList.style.display = 'none';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                fetch(`/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const pokemonCards = doc.querySelectorAll('.pokemon-card');
+                        
+                        if (pokemonCards.length === 0) {
+                            suggestionsList.style.display = 'none';
+                            return;
+                        }
+
+                        suggestionsList.innerHTML = '';
+                        const maxSuggestions = Math.min(pokemonCards.length, 5);
+                        
+                        for (let i = 0; i < maxSuggestions; i++) {
+                            const card = pokemonCards[i];
+                            const link = card.querySelector('a');
+                            const name = card.querySelector('h3').textContent;
+                            const href = link.getAttribute('href');
+                            
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.className = 'suggestion-item';
+                            suggestionItem.innerHTML = `<strong>${name}</strong>`;
+                            suggestionItem.addEventListener('click', () => {
+                                window.location.href = href;
+                            });
+                            suggestionsList.appendChild(suggestionItem);
+                        }
+                        
+                        suggestionsList.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la recherche:', error);
+                    });
+            }, 300);
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-form') && !e.target.closest('.suggestions-box')) {
+                suggestionsList.style.display = 'none';
+            }
+        });
+
+        searchInput.addEventListener('focus', function() {
+            if (suggestionsList.children.length > 0) {
+                suggestionsList.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+{{end}}

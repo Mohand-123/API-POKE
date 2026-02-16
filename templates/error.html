@@ -1,0 +1,9 @@
+{{template "base" .}}
+
+{{define "content"}}
+<section>
+    <h1>Erreur {{.StatusCode}}</h1>
+    <p>{{.Message}}</p>
+    <a class="btn" href="/">Retour à l'accueil</a>
+</section>
+{{end}}
